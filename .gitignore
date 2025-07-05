@@ -1,0 +1,79 @@
+## Build-Outputs
+bin/
+obj/
+TestResults/
+out/
+coverage/
+*.log
+
+## User-spezifische Dateien
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Rider
+.idea/
+
+## Visual Studio Code
+.vscode/
+
+## Visual Studio
+.vs/
+
+## ASP.NET Secrets
+secrets.json
+*.db
+
+## Resharper
+_ReSharper*/
+*.DotSettings.user
+
+## NuGet
+*.nupkg
+packages/
+.nuget/
+project.lock.json
+project.fragment.lock.json
+
+## Entity Framework
+Migrations/
+
+## Web/Node Stuff (falls Frontend vorhanden)
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+*.tsbuildinfo
+
+## OS-spezifisch
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+## Logs / Dumps
+*.log
+*.bak
+*.dmp
+*.swp
+
+## IDE Auto-Generated
+*.tlog
+*.pdb
+*.cache
+*.dbmdl
+
+## Docker
+**/docker-compose.override.yml
+**/.docker/
+
+## JetBrains Rider Logs
+.idea/
+*.sln.iml
