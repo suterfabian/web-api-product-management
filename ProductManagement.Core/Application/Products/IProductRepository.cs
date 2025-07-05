@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ProductManagement.Core.Domain;
 
 namespace ProductManagement.Core.Application.Products;
-internal interface IProductRepository
+
+public interface IProductRepository
 {
+    Product AddProduct(Product product);
+
+    IEnumerable<Product> GetProducts();
 }
