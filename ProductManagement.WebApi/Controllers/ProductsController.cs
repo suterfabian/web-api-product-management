@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProductManagement.Core.Application.Products;
 using ProductManagement.Core.Domain;
 
 namespace ProductManagement.WebApi.Controllers;
@@ -8,21 +9,23 @@ namespace ProductManagement.WebApi.Controllers;
 public class ProductsController : ControllerBase
 {
     private readonly ILogger<ProductsController> _logger;
+    private readonly IProductRepository _productRepository;
 
-    public ProductsController(ILogger<ProductsController> logger)
+    public ProductsController(ILogger<ProductsController> logger, IProductRepository productRepository)
     {
+        _productRepository = productRepository;
         _logger = logger;
     }
 
     [HttpGet(Name = "GetProducts")]
     public IEnumerable<Product> Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new Product
-        {
-            Id = index,
-            Name = $"Product-{index}",
-            Price = Random.Shared.Next(9000)
-        })
-        .ToArray();
+        return _productRepository.GetProducts();
+    }
+
+    [HttpPost(Name = "AddProduct")]
+    public Product Post([FromBody] Product product)
+    {
+        return _productRepository.AddProduct(product);
     }
 }
