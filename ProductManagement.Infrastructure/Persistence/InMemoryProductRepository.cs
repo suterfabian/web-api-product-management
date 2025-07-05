@@ -1,5 +1,5 @@
-﻿using ProductManagement.Application.Products;
-using ProductManagement.Domain;
+﻿using ProductManagement.Domain;
+using ProductManagement.Domain.Interfaces;
 
 namespace ProductManagement.Infrastructure.Persistence;
 

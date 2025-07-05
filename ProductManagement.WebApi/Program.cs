@@ -1,4 +1,5 @@
 using ProductManagement.Application.Products;
+using ProductManagement.Domain.Interfaces;
 using ProductManagement.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);

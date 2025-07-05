@@ -1,4 +1,5 @@
 ﻿using ProductManagement.Domain;
+using ProductManagement.Domain.Interfaces;
 
 namespace ProductManagement.Application.Products;
 

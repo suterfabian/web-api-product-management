@@ -1,6 +1,4 @@
-﻿using ProductManagement.Domain;
-
-namespace ProductManagement.Application.Products;
+﻿namespace ProductManagement.Domain.Interfaces;
 
 public interface IProductRepository
 {
