@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProductManagement.Core.Application.Products;
-using ProductManagement.Core.Domain;
+using ProductManagement.Application.Products;
+using ProductManagement.Domain;
 
 namespace ProductManagement.WebApi.Controllers;
 
@@ -9,23 +9,40 @@ namespace ProductManagement.WebApi.Controllers;
 public class ProductsController : ControllerBase
 {
     private readonly ILogger<ProductsController> _logger;
-    private readonly IProductRepository _productRepository;
+    private readonly CreateProductHandler _createHandler;
+    private readonly GetProductHandler _getHandler;
+    private readonly GetAllProductsHandler _getAllHandler;
 
-    public ProductsController(ILogger<ProductsController> logger, IProductRepository productRepository)
+    public ProductsController(
+        ILogger<ProductsController> logger,
+        CreateProductHandler createHandler,
+        GetProductHandler getHandler,
+        GetAllProductsHandler getAllHandler)
     {
-        _productRepository = productRepository;
         _logger = logger;
+        _createHandler = createHandler;
+        _getHandler = getHandler;
+        _getAllHandler = getAllHandler;
     }
 
-    [HttpGet(Name = "GetProducts")]
-    public IEnumerable<Product> Get()
+    [HttpPost]
+    public async Task<ActionResult<Guid>> Create([FromBody] CreateProductCommand command)
     {
-        return _productRepository.GetProducts();
+        var id = await _createHandler.HandleAsync(command);
+        return Ok(id);
     }
 
-    [HttpPost(Name = "AddProduct")]
-    public Product Post([FromBody] Product product)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Product>> GetById(Guid id)
     {
-        return _productRepository.AddProduct(product);
+        var product = await _getHandler.HandleAsync(new GetProductQuery(id));
+        return product is null ? NotFound() : Ok(product);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<List<Product>>> GetAll()
+    {
+        var products = await _getAllHandler.HandleAsync();
+        return Ok(products);
     }
 }

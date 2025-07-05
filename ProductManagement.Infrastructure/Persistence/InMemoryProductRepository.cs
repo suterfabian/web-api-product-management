@@ -1,5 +1,5 @@
-﻿using ProductManagement.Core.Application.Products;
-using ProductManagement.Core.Domain;
+﻿using ProductManagement.Application.Products;
+using ProductManagement.Domain;
 
 namespace ProductManagement.Infrastructure.Persistence;
 
@@ -12,23 +12,29 @@ public class InMemoryProductRepository : IProductRepository
         Init();
     }
 
-    public Product AddProduct(Product product)
+    public Task AddAsync(Product product)
     {
         _products.Add(product);
-
-        return product;
+        return Task.CompletedTask;
     }
 
-    public IEnumerable<Product> GetProducts()
+    public Task<Product?> GetByIdAsync(Guid id)
     {
-        return _products;
+        var product = _products.FirstOrDefault(p => p.Id == id);
+        return Task.FromResult(product);
+    }
+
+    public Task<List<Product>> GetAsync()
+    {
+        // Rückgabe einer Kopie zur Sicherheit (Read-Only)
+        return Task.FromResult(_products.ToList());
     }
 
     public void Init()
     {
         _products.AddRange(Enumerable.Range(1, 10).Select(index => new Product
         {
-            Id = index,
+            Id = Guid.NewGuid(),
             Name = $"Product-{index}",
             Price = Random.Shared.Next(9000)
         }));

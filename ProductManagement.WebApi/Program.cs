@@ -1,4 +1,4 @@
-using ProductManagement.Core.Application.Products;
+using ProductManagement.Application.Products;
 using ProductManagement.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +10,12 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
+// Application Services
+builder.Services.AddScoped<CreateProductHandler>();
+builder.Services.AddScoped<GetProductHandler>();
+builder.Services.AddScoped<GetAllProductsHandler>();
+
+// Repository Binding
 builder.Services.AddSingleton<IProductRepository, InMemoryProductRepository>();
 
 var app = builder.Build();

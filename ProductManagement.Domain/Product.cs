@@ -1,4 +1,4 @@
-﻿namespace ProductManagement.Core.Domain;
+﻿namespace ProductManagement.Domain;
 
 public class Product
 {
